@@ -831,6 +831,13 @@ namespace Xbim.ModelGeometry.Scene
                     }
                     progDelegate?.Invoke(101, "WriteRegionsToDb");
 
+                    if (PolyLines)
+                    {
+                        progDelegate?.Invoke(-1, "GetPolylines");
+                        _logger.LogTrace("Starting GetPolylines");
+                        GetPolylines(contextHelper);
+                        progDelegate?.Invoke(101, "GetPolylines");
+                    }
                 }
                 geometryTransaction.Commit();
             }
@@ -1136,6 +1143,62 @@ namespace Xbim.ModelGeometry.Scene
             var translation = XbimMatrix3D.CreateTranslation(shape.LocalShapeDisplacement.Value);
             return XbimMatrix3D.Multiply(translation, transformation);
         }
+
+        public bool PolyLines { get; set; }
+
+        private void GetPolylines(XbimCreateContextHelper contextHelper)
+        {
+            foreach (var product in from product in Model.Instances.OfType<IIfcProduct>() where product.Representation is not null select product)
+            {
+                foreach (var representation in product.Representation.Representations)
+                {
+                    ////if ((!representation.RepresentationIdentifier.HasValue) || (!representation.RepresentationType.HasValue))
+                    ////{
+                    ////    continue;
+                    ////}
+
+                    ////if (representation.RepresentationIdentifier.Value.ToString().ToLowerInvariant() != "annotation")
+                    ////{
+                    ////    continue;
+                    ////}
+
+                    ////if (representation.RepresentationType.Value.ToString().ToLowerInvariant() != "curve")
+                    ////{
+                    ////    continue;
+                    ////}
+
+                    var transform = XbimPlacementTree.GetTransform(product, contextHelper.PlacementTree, Engine);
+
+                    foreach (var item in representation.Items)
+                    {
+                        var transformedPoints = new List<XbimPoint3D>();
+
+                        switch (item)
+                        {
+                            case IIfcGeometricCurveSet curveSet:
+                                foreach (var element in curveSet.Elements)
+                                {
+                                    switch (element)
+                                    {
+                                        case IIfcPolyline polyline:
+                                            transformedPoints = TransformPolyLine(polyline, transform);
+                                            break;
+                                    }
+                                }
+
+                                break;
+
+                            case IIfcPolyline polyline:
+                                transformedPoints = TransformPolyLine(polyline, transform);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private static List<XbimPoint3D> TransformPolyLine(IIfcPolyline polyline, XbimMatrix3D transform)
+            => (from point in polyline.Points select XbimPoint3D.Multiply(Ifc.IIfcCartesianPointExtensions.ToXbimPoint3D(point), transform)).ToList();
 
         private void WriteProductShapes(XbimCreateContextHelper contextHelper, IEnumerable<IIfcProduct> products, IGeometryStoreInitialiser txn)
         {
