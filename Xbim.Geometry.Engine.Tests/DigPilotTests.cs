@@ -27,7 +27,7 @@ public class DigPilotTests
         using var model = IfcStore.Open(stream, IO.StorageType.Ifc, IO.XbimModelType.MemoryModel);
         var c = new Xbim3DModelContext(model, _loggerFactory, XGeometryEngineVersion.V6)
         {
-            PolyLines = true,
+            GetPolyLines = true,
         };
         var result = c.CreateContext(null, false);
         result.Should().Be(true);

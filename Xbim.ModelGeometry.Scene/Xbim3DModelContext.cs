@@ -831,7 +831,7 @@ namespace Xbim.ModelGeometry.Scene
                     }
                     progDelegate?.Invoke(101, "WriteRegionsToDb");
 
-                    if (PolyLines)
+                    if (GetPolyLines)
                     {
                         progDelegate?.Invoke(-1, "GetPolylines");
                         _logger.LogTrace("Starting GetPolylines");
@@ -1144,10 +1144,14 @@ namespace Xbim.ModelGeometry.Scene
             return XbimMatrix3D.Multiply(translation, transformation);
         }
 
-        public bool PolyLines { get; set; }
+        public bool GetPolyLines { get; set; }
+
+        public IReadOnlyDictionary<int, IReadOnlyList<XbimPoint3D>> Polylines { get; private set; } = new Dictionary<int, IReadOnlyList<XbimPoint3D>>();
 
         private void GetPolylines(XbimCreateContextHelper contextHelper)
         {
+            var polylines = new Dictionary<int, List<XbimPoint3D>>();
+
             foreach (var product in from product in Model.Instances.OfType<IIfcProduct>() where product.Representation is not null select product)
             {
                 foreach (var representation in product.Representation.Representations)
@@ -1171,8 +1175,6 @@ namespace Xbim.ModelGeometry.Scene
 
                     foreach (var item in representation.Items)
                     {
-                        var transformedPoints = new List<XbimPoint3D>();
-
                         switch (item)
                         {
                             case IIfcGeometricCurveSet curveSet:
@@ -1181,7 +1183,11 @@ namespace Xbim.ModelGeometry.Scene
                                     switch (element)
                                     {
                                         case IIfcPolyline polyline:
-                                            transformedPoints = TransformPolyLine(polyline, transform);
+                                            if (!polylines.ContainsKey(polyline.EntityLabel))
+                                            {
+                                                polylines.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
+                                            }
+
                                             break;
                                     }
                                 }
@@ -1189,12 +1195,18 @@ namespace Xbim.ModelGeometry.Scene
                                 break;
 
                             case IIfcPolyline polyline:
-                                transformedPoints = TransformPolyLine(polyline, transform);
+                                if (!polylines.ContainsKey(polyline.EntityLabel))
+                                {
+                                    polylines.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
+                                }
+
                                 break;
                         }
                     }
                 }
             }
+
+            Polylines = polylines.ToDictionary<KeyValuePair<int, List<XbimPoint3D>>, int, IReadOnlyList<XbimPoint3D>>(polyline => polyline.Key, polyline => polyline.Value);
         }
 
         private static List<XbimPoint3D> TransformPolyLine(IIfcPolyline polyline, XbimMatrix3D transform)
