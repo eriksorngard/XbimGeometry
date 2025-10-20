@@ -18,9 +18,10 @@ public class DigPilotTests
     }
 
     [Theory]
-    ////[InlineData("Stømner.ifc")]
-    [InlineData("StikkrenneTestAH.ifc")]
-    public void GetPolylines(string fileName)
+    [InlineData("Stømner.ifc", 3)]
+    ////[InlineData("StikkrenneTestAH.ifc", 1)]
+    ////[InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
+    public void GetPolylines(string fileName, int expectedCount)
     {
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
         using FileStream stream = new(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 4, FileOptions.Asynchronous | FileOptions.SequentialScan);
@@ -31,5 +32,6 @@ public class DigPilotTests
         };
         var result = c.CreateContext(null, false);
         result.Should().Be(true);
+        c.Polylines.Should().HaveCount(expectedCount);
     }
 }
