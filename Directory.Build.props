@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>6.0.0.0-dev</Version>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <Version>6.1.855.0-digpilot-2</Version>
+    <AssemblyVersion>6.1.855.0</AssemblyVersion>
     <Copyright>Copyright © XBIM Ltd</Copyright>
     <Company>Xbim Ltd.</Company>
     <Authors>Steve Lockley, Martin Cerny and XBIMTeam Contributors</Authors>
@@ -27,6 +27,7 @@
     <AssemblyOriginatorKeyFile>..\XbimOpenSourceKeyFile.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign><DelaySign>false</DelaySign>
     <LangVersion>10.0</LangVersion>
+    <PackageOutputPath>$(SolutionDir)packages\</PackageOutputPath>
   </PropertyGroup>
 
 </Project>
