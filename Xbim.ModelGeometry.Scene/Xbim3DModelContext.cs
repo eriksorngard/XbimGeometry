@@ -1186,7 +1186,7 @@ namespace Xbim.ModelGeometry.Scene
                                     switch (element)
                                     {
                                         case IIfcPolyline polyline:
-                                            if (!polylines.ContainsKey(polyline.EntityLabel))
+                                            if (!polylines.ContainsKey(polyline.EntityLabel) && polyline.Dim == 3)
                                             {
                                                 polylines.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
                                             }
@@ -1198,7 +1198,7 @@ namespace Xbim.ModelGeometry.Scene
                                 break;
 
                             case IIfcPolyline polyline:
-                                if (!polylines.ContainsKey(polyline.EntityLabel))
+                                if (!polylines.ContainsKey(polyline.EntityLabel) && polyline.Dim == 3)
                                 {
                                     polylines.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
                                 }

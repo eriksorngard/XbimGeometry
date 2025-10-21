@@ -21,6 +21,7 @@ public class DigPilotTests
     ////[InlineData("Stømner.ifc", 3)]
     ////[InlineData("StikkrenneTestAH.ifc", 1)]
     [InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
+    ////[InlineData("20200270_Bygg21_LARK.ifc", 0)]
     public void GetPolylines(string fileName, int expectedCount)
     {
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
