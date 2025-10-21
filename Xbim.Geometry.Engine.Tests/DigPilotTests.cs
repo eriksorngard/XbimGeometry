@@ -20,8 +20,8 @@ public class DigPilotTests
     [Theory]
     ////[InlineData("Stømner.ifc", 3)]
     ////[InlineData("StikkrenneTestAH.ifc", 1)]
-    [InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
-    ////[InlineData("20200270_Bygg21_LARK.ifc", 0)]
+    ////[InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
+    [InlineData("20200270_Bygg21_LARK.ifc", 0)]
     public void GetPolylines(string fileName, int expectedCount)
     {
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
@@ -29,9 +29,9 @@ public class DigPilotTests
         using var model = IfcStore.Open(stream, IO.StorageType.Ifc, IO.XbimModelType.MemoryModel);
         var context = new Xbim3DModelContext(model, _loggerFactory, XGeometryEngineVersion.V6);
 
-        var result = context.CreateContext(generatePolylines: true);
+        var result = context.CreateContext(generateCurves: true);
 
         result.Should().Be(true);
-        context.Polylines.Should().HaveCount(expectedCount);
+        context.Curves.Should().HaveCount(expectedCount);
     }
 }
