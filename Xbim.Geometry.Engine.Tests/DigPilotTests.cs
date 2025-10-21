@@ -22,7 +22,7 @@ public class DigPilotTests
     ////[InlineData("StikkrenneTestAH.ifc", 1)]
     ////[InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
     [InlineData("20200270_Bygg21_LARK.ifc", 0)]
-    public void GetPolylines(string fileName, int expectedCount)
+    public void GetCurves(string fileName, int expectedCount)
     {
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 4, FileOptions.Asynchronous | FileOptions.SequentialScan);
