@@ -157,6 +157,9 @@
     <Reference Include="Xbim.Geometry.Abstractions">
       <HintPath>$(PackagesDir)Xbim.Geometry.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Xbim.Tessellator">
+      <HintPath>$(PackagesDir)Xbim.Tessellator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -206,6 +209,7 @@
       <PreprocessorDefinitions>OCCT_NO_PLUGINS;WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4691;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>advapi32.lib;gdi32.lib;user32.lib;comdlg32.lib;wsock32.lib;Psapi.lib</AdditionalDependencies>
@@ -225,6 +229,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4691;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>advapi32.lib;gdi32.lib;user32.lib;comdlg32.lib;wsock32.lib;Psapi.lib</AdditionalDependencies>
@@ -245,6 +250,7 @@
       <EnablePREfast>false</EnablePREfast>
       <DisableSpecificWarnings>4691;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>advapi32.lib;gdi32.lib;user32.lib;comdlg32.lib;wsock32.lib;Psapi.lib</AdditionalDependencies>
@@ -265,6 +271,7 @@
       <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
       <DisableSpecificWarnings>4691;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>advapi32.lib;gdi32.lib;user32.lib;comdlg32.lib;wsock32.lib;Psapi.lib</AdditionalDependencies>
@@ -421,8 +428,6 @@
     <ClInclude Include="BRep\XRectangleTrimmedSurface.h" />
     <ClInclude Include="BRep\XSurfaceOfLinearExtrusion.h" />
     <ClInclude Include="BRep\XMatrix.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="BRep\Unmanaged\NFootprint.cpp" />
     <ClCompile Include="BRep\XEllipse.cpp" />
     <ClCompile Include="Factories\BIMAuthoringToolWorkArounds.cpp" />
@@ -510,28 +515,13 @@
     <ClCompile Include="Visual\ColourRGB.cpp" />
     <ClCompile Include="Visual\VisualMaterial.cpp" />
     <ClCompile Include="Visual\XbimShapeColour.cpp" />
-    <ClCompile Include="XbimCompound.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimCompound.cpp" />
     <ClCompile Include="XbimConvert.cpp" />
     <ClCompile Include="XbimCurve.cpp" />
     <ClCompile Include="XbimCurve2D.cpp" />
-    <ClCompile Include="XbimEdge.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimEdge.cpp" />
     <ClCompile Include="XbimEdgeSet.cpp" />
-    <ClCompile Include="XbimFace.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimFace.cpp" />
     <ClCompile Include="XbimFaceSet.cpp" />
     <ClCompile Include="XbimGeometryCreator.cpp" />
     <ClCompile Include="XbimGeometryCreatorV6.cpp" />
@@ -548,26 +538,11 @@
     <ClCompile Include="XbimProgressMonitor.cpp" />
     <ClCompile Include="XbimShell.cpp" />
     <ClCompile Include="XbimShellSet.cpp" />
-    <ClCompile Include="XbimSolid.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimSolid.cpp" />
     <ClCompile Include="XbimSolidSet.cpp" />
-    <ClCompile Include="XbimVertex.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimVertex.cpp" />
     <ClCompile Include="XbimVertexSet.cpp" />
-    <ClCompile Include="XbimWire.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="XbimWire.cpp" />
     <ClCompile Include="XbimWireSet.cpp" />
     <ClCompile Include="BRep\XMatrix.cpp" />
   </ItemGroup>
@@ -580,12 +555,6 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Xbim.Tessellator\Xbim.Tessellator.csproj">
-      <Project>{2ff7ea98-4993-491a-9f05-3cac1242828e}</Project>
-      <Name>Xbim.Tessellator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="OcctLibraries">

@@ -23,13 +23,13 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="8.2.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
 		<PackageReference Include="Moq" Version="4.20.72" />
 		<PackageReference Include="NetTopologySuite.IO.SpatiaLite" Version="2.0.0" />
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.abstractions" Version="2.0.3" />
 		<PackageReference Include="Xunit.DependencyInjection.Logging" Version="9.0.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.3">
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -71,6 +71,9 @@
 		</None>
 		<None Update="TestFiles\arbritary_closed_profile_with_intersecting_voids_test.ifc">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestFiles\bar.stripped.ifc">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestFiles\BooleanClippingWithHalfSpace.ifc">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -162,6 +165,9 @@
 		<None Update="TestFiles\Github\Github_issue_512b.ifc">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="TestFiles\Github\Github_issue_557.ifc">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="TestFiles\Ifc4TestFiles\IFC4TessellationComplex.ifc">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -236,6 +242,9 @@
 		</None>
 		<None Update="TestFiles\polyline_with_very_close_points.ifc">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="TestFiles\rebar_isolated.ifc">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestFiles\Regression\FaceSetWithColinearFaceVertices.ifc">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
