@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>6.3.873.0-digpilot-3</Version>
-    <AssemblyVersion>6.3.873.0</AssemblyVersion>
+    <Version>6.3.879.0-digpilot-3</Version>
+    <AssemblyVersion>6.3.879.0</AssemblyVersion>
     <Copyright>Copyright © XBIM Ltd</Copyright>
     <Company>Xbim Ltd.</Company>
     <Authors>Steve Lockley, Martin Cerny and XBIMTeam Contributors</Authors>
