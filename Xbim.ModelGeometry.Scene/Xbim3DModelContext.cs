@@ -1150,7 +1150,13 @@ namespace Xbim.ModelGeometry.Scene
 
         private void GetCurves(XbimCreateContextHelper contextHelper)
         {
-            var supportedRepresentations = new HashSet<string> { "curve", "curve3d", "geometriccurveset" };
+            var supportedRepresentationTypes = new HashSet<string>
+            {
+                "annotation2d",
+                "curve",
+                "curve3d",
+                "geometriccurveset",
+            };
 
             var curves = new Dictionary<int, List<XbimPoint3D>>();
 
@@ -1159,7 +1165,7 @@ namespace Xbim.ModelGeometry.Scene
                 foreach (var representation in product.Representation.Representations)
                 {
                     if (!representation.RepresentationType.HasValue ||
-                        !supportedRepresentations.Contains(representation.RepresentationType.Value.ToString().ToLowerInvariant()))
+                        !supportedRepresentationTypes.Contains(representation.RepresentationType.Value.ToString().ToLowerInvariant()))
                     {
                         continue;
                     }
@@ -1176,7 +1182,7 @@ namespace Xbim.ModelGeometry.Scene
                                     switch (element)
                                     {
                                         case IIfcPolyline polyline:
-                                            if (!curves.ContainsKey(polyline.EntityLabel) && polyline.Dim == 3)
+                                            if (!curves.ContainsKey(polyline.EntityLabel))
                                             {
                                                 curves.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
                                             }
@@ -1192,7 +1198,7 @@ namespace Xbim.ModelGeometry.Scene
                                 break;
 
                             case IIfcPolyline polyline:
-                                if (!curves.ContainsKey(polyline.EntityLabel) && polyline.Dim == 3)
+                                if (!curves.ContainsKey(polyline.EntityLabel))
                                 {
                                     curves.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
                                 }
@@ -1213,7 +1219,25 @@ namespace Xbim.ModelGeometry.Scene
         }
 
         private static List<XbimPoint3D> TransformPolyLine(IIfcPolyline polyline, XbimMatrix3D transform)
-            => (from point in polyline.Points select XbimPoint3D.Multiply(Ifc.IIfcCartesianPointExtensions.ToXbimPoint3D(point), transform)).ToList();
+        {
+            var points = new List<XbimPoint3D>();
+
+            foreach (var point in polyline.Points)
+            {
+                switch (polyline.Dim)
+                {
+                    case 2:
+                        points.Add(XbimPoint3D.Multiply(new XbimPoint3D(point.X, point.Y, 0), transform));
+                        break;
+
+                    case 3:
+                        points.Add(XbimPoint3D.Multiply(Ifc.IIfcCartesianPointExtensions.ToXbimPoint3D(point), transform));
+                        break;
+                }
+            }
+
+            return points;
+        }
 
         private void WriteProductShapes(XbimCreateContextHelper contextHelper, IEnumerable<IIfcProduct> products, IGeometryStoreInitialiser txn)
         {
