@@ -22,7 +22,7 @@ public class DigPilotTests
     ////[InlineData("StikkrenneTestAH.ifc", 1)]
     ////[InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23)]
     ////[InlineData("20200270_Bygg21_LARK.ifc", 0)]
-    ////[InlineData("Example files for IFC export\\Ifx2x3-case3-mapcoordinates.ifc", 1)]
+    [InlineData("Example files for IFC export\\Ifx4x3-case6-mapcoordinates.ifc", 3)]
     public void GetCurves(string fileName, int expectedCount)
     {
         var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);

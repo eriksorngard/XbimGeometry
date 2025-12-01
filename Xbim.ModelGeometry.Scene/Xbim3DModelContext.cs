@@ -1155,6 +1155,7 @@ namespace Xbim.ModelGeometry.Scene
                 "annotation2d",
                 "curve",
                 "curve3d",
+                "mappedrepresentation",
                 "geometriccurveset",
             };
 
@@ -1176,6 +1177,27 @@ namespace Xbim.ModelGeometry.Scene
                     {
                         switch (item)
                         {
+                            case IIfcMappedItem mappedItem:
+                                foreach (var innerItem in mappedItem.MappingSource?.MappedRepresentation?.Items)
+                                {
+                                    switch (innerItem)
+                                    {
+                                        case IIfcPolyline polyline:
+                                            if (!curves.ContainsKey(polyline.EntityLabel))
+                                            {
+                                                curves.Add(polyline.EntityLabel, TransformPolyLine(polyline, transform));
+                                            }
+
+                                            break;
+
+                                        default:
+                                            _logger.LogWarning("Unknown entity type {0}.", mappedItem.GetType().FullName);
+                                            break;
+                                    }
+                                }
+
+                                break;
+
                             case IIfcGeometricCurveSet curveSet:
                                 foreach (var element in curveSet.Elements)
                                 {
