@@ -1190,9 +1190,9 @@ namespace Xbim.ModelGeometry.Scene
 
                                             break;
 
-                                        default:
-                                            _logger.LogWarning("Unknown entity type {0}.", mappedItem.GetType().FullName);
-                                            break;
+                                        ////default:
+                                        ////    _logger.LogWarning("Unknown entity type {0}.", mappedItem.GetType().FullName);
+                                        ////    break;
                                     }
                                 }
 
