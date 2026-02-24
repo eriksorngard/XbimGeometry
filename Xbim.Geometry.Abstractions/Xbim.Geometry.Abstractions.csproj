@@ -4,7 +4,7 @@
     <Title>Xbim Geometry Interfaces</Title>
     <Description>Interface classes for version 6 of the Xbim Geometry Engine</Description>
     <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Platforms>AnyCPU</Platforms>
     <NoWarn>CS1591</NoWarn>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>

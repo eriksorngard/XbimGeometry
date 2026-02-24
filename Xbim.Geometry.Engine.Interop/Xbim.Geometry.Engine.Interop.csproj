@@ -3,7 +3,7 @@
 		<TargetFrameworks>net472;net8.0</TargetFrameworks>
 		<Title>Xbim Geometry Engine</Title>
 		<Description>Provides support for the Ifc4 and Ifc2x3 Geometry conversion.</Description>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
 		<PackageId>Xbim.Geometry.Engine.Interop</PackageId>
 		<Platforms>AnyCPU;x64;x86</Platforms>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>

@@ -5,7 +5,7 @@
     <Title>Xbim Tessellator</Title>
     <Description>Provides support for tessellating mesh geometries.</Description>
     <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <NoWarn>CS1591</NoWarn>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
