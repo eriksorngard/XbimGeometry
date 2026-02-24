@@ -4,7 +4,6 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using System.Security.Principal;
 using Xbim.Geometry.Abstractions;
 using Xbim.Ifc;
 using Xbim.Ifc4.Interfaces;
