@@ -3,8 +3,11 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
+using System.Security.Principal;
 using Xbim.Geometry.Abstractions;
 using Xbim.Ifc;
+using Xbim.Ifc4.Interfaces;
 using Xbim.ModelGeometry.Scene;
 using Xunit;
 
@@ -35,5 +38,21 @@ public class DigPilotTests
         result.Should().Be(true);
         context.Curves.Should().HaveCount(expectedCurveCount);
         context.Points.Should().HaveCount(expectedPointCount);
+    }
+
+    [Theory]
+    [InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc")]
+    public void PresentationStyleAssignment_FromModel_StyleShouldNotBeNull(string fileName)
+    {
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+        using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 4, FileOptions.Asynchronous | FileOptions.SequentialScan);
+        using var model = IfcStore.Open(stream, IO.StorageType.Ifc, IO.XbimModelType.MemoryModel);
+
+        var assignment = model.Instances.OfType<IIfcPresentationStyleAssignment>().FirstOrDefault(e => e.EntityLabel == 42822);
+
+        foreach (var style in assignment.Styles)
+        {
+            style.Should().NotBeOfType<Xbim.Ifc4.PresentationAppearanceResource.IfcNullStyle>();
+        }
     }
 }
