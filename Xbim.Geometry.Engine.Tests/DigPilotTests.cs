@@ -23,6 +23,7 @@ public class DigPilotTests
     ////[InlineData("Stømner.ifc", 3)]
     ////[InlineData("StikkrenneTestAH.ifc", 1)]
     [InlineData("C_OMS_FM_GEN_DRE_1100_Sporv prosjektert anlegg.ifc", 23, 6)]
+    ////[InlineData("P7_V32_f_c-veg_Vegmodeller-ifc4x3.ifc", 286, 0)]
     ////[InlineData("20200270_Bygg21_LARK.ifc", 0)]
     ////[InlineData("Example files for IFC export\\Ifx4x3-case6-mapcoordinates.ifc", 3)]
     public void GetCurvesAndPoints_FromModel_CountsAreAsExpected(string fileName, int expectedCurveCount, int expectedPointCount)
