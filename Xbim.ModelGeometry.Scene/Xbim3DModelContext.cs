@@ -1204,6 +1204,9 @@ namespace Xbim.ModelGeometry.Scene
 
                                             break;
 
+                                        case Ifc4x3.GeometryResource.IfcGradientCurve:
+                                            break;
+
                                         default:
                                             _logger.LogWarning("Unknown entity type {0}.", mappedItem.GetType().FullName);
                                             break;
@@ -1233,6 +1236,9 @@ namespace Xbim.ModelGeometry.Scene
 
                                             break;
 
+                                        case Ifc4x3.GeometryResource.IfcGradientCurve:
+                                            break;
+
                                         default:
                                             _logger.LogWarning("Unknown entity type {0}.", element.GetType().FullName);
                                             break;
@@ -1255,6 +1261,9 @@ namespace Xbim.ModelGeometry.Scene
                                     points.Add(cartesianPoint.EntityLabel, TransformCartesianPoint(cartesianPoint, transform));
                                 }
 
+                                break;
+
+                            case Ifc4x3.GeometryResource.IfcGradientCurve:
                                 break;
 
                             default:
