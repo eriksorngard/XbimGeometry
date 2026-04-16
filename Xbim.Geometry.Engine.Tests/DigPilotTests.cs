@@ -1,6 +1,5 @@
 ﻿namespace Xbim.Geometry.Engine.Tests;
 
-using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -35,9 +34,9 @@ public class DigPilotTests
 
         var result = context.CreateContext(generateCurvesAndPoints: true);
 
-        result.Should().Be(true);
-        context.Curves.Should().HaveCount(expectedCurveCount);
-        context.Points.Should().HaveCount(expectedPointCount);
+        Assert.True(result);
+        Assert.Equal(expectedCurveCount, context.Curves.Count);
+        Assert.Equal(expectedPointCount, context.Points.Count);
     }
 
     [Theory]
@@ -52,14 +51,14 @@ public class DigPilotTests
 
         foreach (var style in assignment.Styles)
         {
-            style.Should().NotBeOfType<Xbim.Ifc4.PresentationAppearanceResource.IfcNullStyle>();
+            Assert.IsNotType<Xbim.Ifc4.PresentationAppearanceResource.IfcNullStyle>(style);
         }
 
         assignment = model.Instances.OfType<IIfcPresentationStyleAssignment>().FirstOrDefault(e => e.EntityLabel == 42822);
 
         foreach (var style in assignment.Styles)
         {
-            style.Should().NotBeOfType<Xbim.Ifc4.PresentationAppearanceResource.IfcNullStyle>();
+            Assert.IsNotType<Xbim.Ifc4.PresentationAppearanceResource.IfcNullStyle>(style);
         }
     }
 }
