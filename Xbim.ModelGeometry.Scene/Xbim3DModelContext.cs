@@ -1205,10 +1205,12 @@ namespace Xbim.ModelGeometry.Scene
                                             break;
 
                                         case Ifc4x3.GeometryResource.IfcGradientCurve:
+                                        case IIfcSolidModel:
+                                        case IIfcTessellatedItem:
                                             break;
 
                                         default:
-                                            _logger.LogWarning("Unknown entity type {0}.", mappedItem.GetType().FullName);
+                                            _logger.LogWarning("Unknown entity type {0}.", innerItem.GetType().FullName);
                                             break;
                                     }
                                 }
@@ -1264,6 +1266,8 @@ namespace Xbim.ModelGeometry.Scene
                                 break;
 
                             case Ifc4x3.GeometryResource.IfcGradientCurve:
+                            case IIfcSolidModel:
+                            case IIfcTessellatedItem:
                                 break;
 
                             default:
